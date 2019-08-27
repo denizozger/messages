@@ -1,0 +1,113 @@
+{
+  "resource": "/messages",
+  "path": "/messages",
+  "httpMethod": "POST",
+  "headers": {
+    "Accept": "application/json, */*",
+    "Accept-Encoding": "gzip, deflate",
+    "CloudFront-Forwarded-Proto": "https",
+    "CloudFront-Is-Desktop-Viewer": "true",
+    "CloudFront-Is-Mobile-Viewer": "false",
+    "CloudFront-Is-SmartTV-Viewer": "false",
+    "CloudFront-Is-Tablet-Viewer": "false",
+    "CloudFront-Viewer-Country": "NL",
+    "Content-Type": "application/json",
+    "Host": "iuzeqotls3.execute-api.eu-central-1.amazonaws.com",
+    "User-Agent": "HTTPie/1.0.2",
+    "Via": "1.1 6c973aa0cbaa9809a414d7a4e20e26ce.cloudfront.net (CloudFront)",
+    "X-Amz-Cf-Id": "CTF2GIiMxvzjsAQWjbIZDryRhJL7IRFNx7iiXTS6NxkN0kuJ-q_-Dg==",
+    "X-Amzn-Trace-Id": "Root=1-5d659bf1-742b51c87283e78cc7022dcd",
+    "X-Forwarded-For": "213.127.72.1, 70.132.46.112",
+    "X-Forwarded-Port": "443",
+    "X-Forwarded-Proto": "https"
+  },
+  "multiValueHeaders": {
+    "Accept": [
+      "application/json, */*"
+    ],
+    "Accept-Encoding": [
+      "gzip, deflate"
+    ],
+    "CloudFront-Forwarded-Proto": [
+      "https"
+    ],
+    "CloudFront-Is-Desktop-Viewer": [
+      "true"
+    ],
+    "CloudFront-Is-Mobile-Viewer": [
+      "false"
+    ],
+    "CloudFront-Is-SmartTV-Viewer": [
+      "false"
+    ],
+    "CloudFront-Is-Tablet-Viewer": [
+      "false"
+    ],
+    "CloudFront-Viewer-Country": [
+      "NL"
+    ],
+    "Content-Type": [
+      "application/json"
+    ],
+    "Host": [
+      "iuzeqotls3.execute-api.eu-central-1.amazonaws.com"
+    ],
+    "User-Agent": [
+      "HTTPie/1.0.2"
+    ],
+    "Via": [
+      "1.1 6c973aa0cbaa9809a414d7a4e20e26ce.cloudfront.net (CloudFront)"
+    ],
+    "X-Amz-Cf-Id": [
+      "CTF2GIiMxvzjsAQWjbIZDryRhJL7IRFNx7iiXTS6NxkN0kuJ-q_-Dg=="
+    ],
+    "X-Amzn-Trace-Id": [
+      "Root=1-5d659bf1-742b51c87283e78cc7022dcd"
+    ],
+    "X-Forwarded-For": [
+      "213.127.72.1, 70.132.46.112"
+    ],
+    "X-Forwarded-Port": [
+      "443"
+    ],
+    "X-Forwarded-Proto": [
+      "https"
+    ]
+  },
+  "queryStringParameters": null,
+  "multiValueQueryStringParameters": null,
+  "pathParameters": null,
+  "stageVariables": null,
+  "requestContext": {
+    "resourceId": "qtx796",
+    "resourcePath": "/messages",
+    "httpMethod": "POST",
+    "extendedRequestId": "fGVNxHf9FiAFq7g=",
+    "requestTime": "27/Aug/2019:21:09:05 +0000",
+    "path": "/dev/messages",
+    "accountId": "710995169233",
+    "protocol": "HTTP/1.1",
+    "stage": "dev",
+    "domainPrefix": "iuzeqotls3",
+    "requestTimeEpoch": 1566940145788,
+    "requestId": "e73eac5a-c90e-11e9-8601-cb0e0faaf38c",
+    "identity": {
+      "cognitoIdentityPoolId": null,
+      "accountId": null,
+      "cognitoIdentityId": null,
+      "caller": null,
+      "sourceIp": "213.127.72.1",
+      "principalOrgId": null,
+      "accessKey": null,
+      "cognitoAuthenticationType": null,
+      "cognitoAuthenticationProvider": null,
+      "userArn": null,
+      "userAgent": "HTTPie/1.0.2",
+      "user": null
+    },
+    "domainName": "iuzeqotls3.execute-api.eu-central-1.amazonaws.com",
+    "apiId": "iuzeqotls3"
+  },
+  "body": "{\"emailAddress\": \"denizozger@gmail.com\", \"content\": \"test\"}",
+  "isBase64Encoded": false
+}

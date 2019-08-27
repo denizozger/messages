@@ -1,0 +1,22 @@
+{
+  "Records": [
+    {
+      "EventSource": "aws:sns",
+      "EventVersion": "1.0",
+      "EventSubscriptionArn": "arn:aws:sns:eu-central-1:710995169233:message-post-dev-email-topic:41f0dd16-4715-4c93-8cfe-3b3b2b2bb1fc",
+      "Sns": {
+        "Type": "Notification",
+        "MessageId": "0965ee21-c4c7-55f3-9697-bbfe5af456b8",
+        "TopicArn": "arn:aws:sns:eu-central-1:710995169233:message-post-dev-email-topic",
+        "Subject": null,
+        "Message": "e73eac5a-c90e-11e9-8601-cb0e0faaf38c",
+        "Timestamp": "2019-08-27T21:09:07.392Z",
+        "SignatureVersion": "1",
+        "Signature": "kx1XADgdBCJVKF2BCMzXGDMn1ROmIz79cTPe3FN1q5X22h/7SM1ul86zFRAT5wI/7EWD/DgYToZXq3kTTou0bv/mijP75vWFnu2PoYgc8JF9lvEjIaqi2Gq+eNqsknofT2SjUNssM1HJ+pSxneMWbRjtnqcwvpC78V+gcy7Dl/EjXWPtWmO4zGNMLC9FdxWst7E327ZblXx1bf6W4iI9YmqYcRVPp63G0DNkeGMjcpupm964ly5zQh+ooWxmDy01XNXnus01uWM0Xcj2QrHfZ+zUX6X5VEDiKQ+Aib5xctIAXL1MIdsD8xyZZVChsQVGYAbposa37Rl31ypmMwofQg==",
+        "SigningCertUrl": "https://sns.eu-central-1.amazonaws.com/SimpleNotificationService-6aad65c2f9911b05cd53efda11f913f9.pem",
+        "UnsubscribeUrl": "https://sns.eu-central-1.amazonaws.com/?Action=Unsubscribe&SubscriptionArn=arn:aws:sns:eu-central-1:710995169233:message-post-dev-email-topic:41f0dd16-4715-4c93-8cfe-3b3b2b2bb1fc",
+        "MessageAttributes": {}
+      }
+    }
+  ]
+}

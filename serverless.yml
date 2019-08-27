@@ -1,31 +1,13 @@
-# Welcome to Serverless!
-#
-# This file is the main config file for your service.
-# It's very minimal at this point and uses default values.
-# You can always add more config options for more control.
-# We've included some commented out config examples here.
-# Just uncomment any of them to get that config option.
-#
-# For full config options, check the docs:
-#    docs.serverless.com
-#
-# Happy Coding!
-
-service: message-service
+service: message-post
 app: message-api
 org: denizozger
-
-# You can pin your service to only deploy with a specific Serverless version
-# Check out our docs for more details
-# frameworkVersion: "=X.X.X"
 
 provider:
   name: aws
   runtime: nodejs10.x
 
-# you can overwrite defaults here
-#  stage: dev
-#  region: us-east-1
+  stage: dev
+  region: eu-central-1
 
 # you can add statements to the Lambda function's IAM Role here
 #  iamRoleStatements:
@@ -51,66 +33,47 @@ provider:
         - dynamodb:PutItem
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
+        - dynamodb:DescribeStream
+        - dynamodb:GetRecords
+        - dynamodb:GetShardIterator
+        - dynamodb:ListStreams
       Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
-
-# you can define service wide environment variables here
-#  environment:
-#    variable1: value1
+    - Effect: Allow
+      Action:
+        - ses:SendEmail
+      Resource: "arn:aws:ses:eu-west-1:710995169233:identity/denizozger@gmail.com"
+    - Effect: Allow
+      Action:
+        - sns:Publish
+      Resource: "arn:aws:sns:eu-central-1:710995169233:message-post-dev-email-topic"
   environment:
-    DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
-
-# you can add packaging information here
-#package:
-#  include:
-#    - include-me.js
-#    - include-me-dir/**
-#  exclude:
-#    - exclude-me.js
-#    - exclude-me-dir/**
+    DYNAMODB_TABLE: messages-${opt:stage, self:provider.stage}
 
 functions:
-  hello:
-    handler: handler.hello
-#    The following are a few example events you can configure
-#    NOTE: Please make sure to change your handler code to work with those events
-#    Check the event documentation for details
+  postMessage:
+    handler: postMessage.postMessage
     events:
       - http:
-          path: hello
+          path: messages
+          method: post
+          cors: true
+  listMessages:
+    handler: listMessages.listMessages
+    events:
+      - http:
+          path: messages
           method: get
           cors: true
-#      - websocket: $connect
-#      - s3: ${env:BUCKET}
-#      - schedule: rate(10 minutes)
-#      - sns: greeter-topic
-#      - stream: arn:aws:dynamodb:region:XXXXXX:table/foo/stream/1970-01-01T00:00:00.000
-#      - alexaSkill: amzn1.ask.skill.xx-xx-xx-xx
-#      - alexaSmartHome: amzn1.ask.skill.xx-xx-xx-xx
-#      - iot:
-#          sql: "SELECT * FROM 'some_topic'"
-#      - cloudwatchEvent:
-#          event:
-#            source:
-#              - "aws.ec2"
-#            detail-type:
-#              - "EC2 Instance State-change Notification"
-#            detail:
-#              state:
-#                - pending
-#      - cloudwatchLog: '/aws/lambda/hello'
-#      - cognitoUserPool:
-#          pool: MyUserPool
-#          trigger: PreSignUp
-#      - alb:
-#          listenerArn: arn:aws:elasticloadbalancing:us-east-1:XXXXXX:listener/app/my-load-balancer/50dc6c495c0c9188/
-#          priority: 1
-#          conditions:
-#            host: example.com
-#            path: /hello
+  handleNewMessage:
+    handler: handleNewMessage.handleNewMessages
+    events:
+#      - stream: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}/stream/1970-01-01T00:00:00.000"
+      - stream: "arn:aws:dynamodb:eu-central-1:710995169233:table/messages-dev/stream/2019-08-27T20:54:42.847"
+  handleEmailSent:
+    handler: handleEmailSent.handleEmailSent
+    events:
+      - sns: "arn:aws:sns:eu-central-1:710995169233:message-post-dev-email-topic"
 
-#    Define function environment variables here
-#    environment:
-#      variable2: value2
 
 # you can add CloudFormation resource templates here
 #resources:
@@ -125,7 +88,7 @@ functions:
 #       Value: "Some output value"
 resources:
   Resources:
-    TodosDynamoDbTable:
+    MessagesTable:
       Type: 'AWS::DynamoDB::Table'
       DeletionPolicy: Retain
       Properties:
@@ -133,11 +96,30 @@ resources:
           -
             AttributeName: id
             AttributeType: S
+          -
+            AttributeName: emailAddress
+            AttributeType: S
+#          -
+#            AttributeName: emailSent
+#            AttributeType: B
         KeySchema:
           -
             AttributeName: id
             KeyType: HASH
+          -
+            AttributeName: emailAddress
+            KeyType: RANGE
+#          -
+#            AttributeName: emailSent
+#            KeyType: RANGE
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
         TableName: ${self:provider.environment.DYNAMODB_TABLE}
+        StreamSpecification:
+          StreamViewType: NEW_AND_OLD_IMAGES
+    EmailTopic:
+      Type: AWS::SNS::Topic
+      Properties:
+        DisplayName: EmailTopic
+        TopicName: ${self:service}-${self:provider.stage}-email-topic

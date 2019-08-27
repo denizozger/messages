@@ -1,0 +1,25 @@
+{
+  "name": "message-post",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "aws-sdk": "^2.517.0",
+    "ramda": "^0.26.1"
+  },
+  "devDependencies": {
+    "jest": "^24.9.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/denizozger/moneyou-message-service.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/denizozger/moneyou-message-service/issues"
+  },
+  "homepage": "https://github.com/denizozger/moneyou-message-service#readme"
+}
