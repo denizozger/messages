@@ -1,0 +1,37 @@
+{
+  "Records": [
+    {
+      "eventID": "275d9d154217610c08f52a6bf846a143",
+      "eventName": "INSERT",
+      "eventVersion": "1.1",
+      "eventSource": "aws:dynamodb",
+      "awsRegion": "eu-central-1",
+      "dynamodb": {
+        "ApproximateCreationDateTime": 1567013758,
+        "Keys": {
+          "emailAddress": {
+            "S": "denizozger@gmail.com"
+          },
+          "id": {
+            "S": "4ace885b-c9ba-11e9-a1e7-e12fbd5a77dc"
+          }
+        },
+        "NewImage": {
+          "emailAddress": {
+            "S": "denizozger@gmail.com"
+          },
+          "id": {
+            "S": "4ace885b-c9ba-11e9-a1e7-e12fbd5a77dc"
+          },
+          "content": {
+            "S": "test"
+          }
+        },
+        "SequenceNumber": "3906000000000011484962524",
+        "SizeBytes": 151,
+        "StreamViewType": "NEW_AND_OLD_IMAGES"
+      },
+      "eventSourceARN": "arn:aws:dynamodb:eu-central-1:710995169233:table/messages-dev/stream/2019-08-27T20:54:42.847"
+    }
+  ]
+}

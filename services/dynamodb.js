@@ -6,7 +6,7 @@ const docClient = new AWS.DynamoDB.DocumentClient({
   region: process.env.AWS_REGION
 });
 
-const createMessage = async (requestId, message) => {
+const createMessage = (requestId, message) => {
   const params = {
     TableName: process.env.DYNAMODB_TABLE,
     Item: {
@@ -18,10 +18,10 @@ const createMessage = async (requestId, message) => {
 
   console.log(`Creating a record with params: ${JSON.stringify(params)}`);
 
-  return await docClient.put(params).promise();
+  return docClient.put(params).promise();
 };
 
-const updateMessage = async messageId => {
+const updateMessage = messageId => {
   const params = {
     TableName: process.env.DYNAMODB_TABLE,
     Key: {
@@ -39,10 +39,10 @@ const updateMessage = async messageId => {
 
   console.log(`Updating record with params: ${JSON.stringify(params)}`);
 
-  return await docClient.update(params).promise();
+  return docClient.update(params).promise();
 };
 
-const listMessages = async emailAddress => {
+const listMessages = emailAddress => {
   const params = {
     TableName: process.env.DYNAMODB_TABLE,
     KeyConditionExpression:
@@ -59,11 +59,12 @@ const listMessages = async emailAddress => {
 
   console.log(`Querying records with params: ${JSON.stringify(params)}`);
 
-  return await docClient.query(params).promise();
+  return docClient.query(params).promise();
 };
 
 module.exports = {
   createMessage,
   updateMessage,
-  listMessages
+  listMessages,
+  docClient
 };

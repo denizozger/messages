@@ -4,6 +4,8 @@ const AWS = require("aws-sdk");
 
 AWS.config.update({ region: "eu-west-1" });
 
+const sesClient = new AWS.SES({ apiVersion: "2010-12-01" });
+
 const sendEmail = (to, content) => {
   const params = {
     Destination: {
@@ -25,9 +27,10 @@ const sendEmail = (to, content) => {
     ReplyToAddresses: ["denizozger@gmail.com"]
   };
 
-  return new AWS.SES({ apiVersion: "2010-12-01" }).sendEmail(params).promise();
+  return sesClient.sendEmail(params).promise();
 };
 
 module.exports = {
-  sendEmail
+  sendEmail,
+  sesClient
 };

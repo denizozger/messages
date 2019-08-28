@@ -2,6 +2,11 @@
 
 const AWS = require("aws-sdk");
 
+const snsClient = new AWS.SNS({
+  apiVersion: "2010-03-31",
+  region: "eu-central-1"
+});
+
 const sendNewEmailMessage = message => {
   var payload = {
     default: message,
@@ -24,11 +29,10 @@ const sendNewEmailMessage = message => {
 
   console.log(`Publishing message ${message} to topic ${params.TopicArn}`);
 
-  return new AWS.SNS({ apiVersion: "2010-03-31", region: "eu-central-1" })
-    .publish(params)
-    .promise();
+  return snsClient.publish(params).promise();
 };
 
 module.exports = {
-  sendNewEmailMessage
+  sendNewEmailMessage,
+  snsClient
 };
