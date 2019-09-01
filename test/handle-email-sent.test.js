@@ -1,6 +1,6 @@
 "use strict";
 
-const { handleEmailSent } = require("../handleEmailSent");
+const { handleEmailSent } = require("../functions/handleEmailSent");
 const dynamoDbService = require("../services/dynamodb");
 
 const EMAIL_SENT_EVENT = require("./fixtures/sns-email-sent-event");

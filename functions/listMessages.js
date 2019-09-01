@@ -1,6 +1,6 @@
 "use strict";
 
-const dynamodb = require("./services/dynamodb");
+const dynamodb = require("../services/dynamodb");
 
 const listMessages = async event => {
   console.log(JSON.stringify(event));

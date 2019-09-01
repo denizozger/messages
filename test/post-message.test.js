@@ -1,6 +1,6 @@
 "use strict";
 
-const { postMessage } = require("../postMessage");
+const { postMessage } = require("../functions/postMessage");
 const dynamoDbService = require("../services/dynamodb");
 
 const MESSAGE_POST_EVENT = require("./fixtures/post-message-event");

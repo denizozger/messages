@@ -1,7 +1,7 @@
 "use strict";
 
-const { handleNewMessages } = require("../handleNewMessage");
-const emailService = require("../services/email");
+const { handleNewMessages } = require("../functions/handleNewMessage");
+const emailService = require("../services/ses");
 const snsService = require("../services/sns");
 
 const MESSAGE_CREATED_EVENT = require("./fixtures/dynamodb-record-created-event");

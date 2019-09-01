@@ -1,6 +1,6 @@
 "use strict";
 
-const { listMessages } = require("../listMessages");
+const { listMessages } = require("../functions/listMessages");
 const dynamoDbService = require("../services/dynamodb");
 
 const MESSAGE_LIST_EVENT = require("./fixtures/list-messages-event");

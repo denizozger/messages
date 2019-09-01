@@ -3,8 +3,8 @@
 const AWS = require("aws-sdk");
 const R = require("ramda");
 
-const emailService = require("./services/email");
-const snsService = require("./services/sns");
+const emailService = require("../services/ses");
+const snsService = require("../services/sns");
 
 const getEventName = R.prop("eventName");
 

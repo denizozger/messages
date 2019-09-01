@@ -1,6 +1,6 @@
 "use strict";
 
-const dynamodb = require("./services/dynamodb");
+const dynamodb = require("../services/dynamodb");
 
 const markMessageAsEmailed = async record => {
   const messageId = record.Sns.Message;
