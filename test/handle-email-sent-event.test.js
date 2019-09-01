@@ -1,6 +1,8 @@
 "use strict";
 
-const { handleEmailSent } = require("../functions/handleEmailSent");
+const {
+  handler: handleEmailSentEvent
+} = require("../functions/handle-email-sent-event");
 const dynamoDbService = require("../services/dynamodb");
 
 const EMAIL_SENT_EVENT = require("./fixtures/sns-email-sent-event");
@@ -17,7 +19,7 @@ describe("handle email sent function", () => {
     jest.resetAllMocks();
   });
   it("marks the message as `emailed` in the database", async () => {
-    await handleEmailSent(EMAIL_SENT_EVENT);
+    await handleEmailSentEvent(EMAIL_SENT_EVENT);
 
     expect(dynamoDbService.docClient.update.mock.calls[0][0]).toEqual({
       ExpressionAttributeNames: {

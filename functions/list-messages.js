@@ -2,10 +2,12 @@
 
 const dynamodb = require("../services/dynamodb");
 
-const listMessages = async event => {
+const handler = async event => {
   console.log(JSON.stringify(event));
+
   const emailAddress = event.queryStringParameters.emailAddress;
   const messages = await dynamodb.listMessages(emailAddress);
+
   return {
     statusCode: 200,
     body: JSON.stringify(messages, null, 2)
@@ -13,5 +15,5 @@ const listMessages = async event => {
 };
 
 module.exports = {
-  listMessages
+  handler
 };

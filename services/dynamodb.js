@@ -6,26 +6,31 @@ const docClient = new AWS.DynamoDB.DocumentClient({
   region: process.env.AWS_REGION
 });
 
-const createMessage = (requestId, message) => {
+const createMessage = async (id, message) => {
+  const { emailAddress, content } = message;
   const params = {
     TableName: process.env.DYNAMODB_TABLE,
     Item: {
-      id: requestId,
-      emailAddress: message.emailAddress,
-      content: message.content
+      id,
+      emailAddress,
+      content
     }
   };
 
-  console.log(`Creating a record with params: ${JSON.stringify(params)}`);
+  console.log(
+    `Creating a message record with params: ${JSON.stringify(params)}`
+  );
 
-  return docClient.put(params).promise();
+  await docClient.put(params).promise();
+
+  console.log(`Created message: ${JSON.stringify(params)}`);
 };
 
-const updateMessage = messageId => {
+const updateMessage = async id => {
   const params = {
     TableName: process.env.DYNAMODB_TABLE,
     Key: {
-      id: messageId
+      id
     },
     UpdateExpression: "SET #emailSent = :emailSent",
     ExpressionAttributeNames: {
@@ -37,9 +42,9 @@ const updateMessage = messageId => {
     ReturnValues: "UPDATED_NEW"
   };
 
-  console.log(`Updating record with params: ${JSON.stringify(params)}`);
+  await docClient.update(params).promise();
 
-  return docClient.update(params).promise();
+  console.log(`Marked message as email sent, message id: ${id}`);
 };
 
 const listMessages = emailAddress => {

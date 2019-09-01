@@ -7,12 +7,12 @@ const snsClient = new AWS.SNS({
   region: "eu-central-1"
 });
 
-const sendNewEmailMessage = message => {
-  var payload = {
+const publishEmailSentEvent = async message => {
+  let payload = {
     default: message,
     GCM: {
       data: {
-        message: message
+        message
       }
     }
   };
@@ -27,12 +27,12 @@ const sendNewEmailMessage = message => {
       "arn:aws:sns:eu-central-1:710995169233:message-post-dev-email-topic"
   };
 
-  console.log(`Publishing message ${message} to topic ${params.TopicArn}`);
+  await snsClient.publish(params).promise();
 
-  return snsClient.publish(params).promise();
+  console.log(`Published event ${message} to topic ${params.TopicArn}`);
 };
 
 module.exports = {
-  sendNewEmailMessage,
+  publishEmailSentEvent,
   snsClient
 };

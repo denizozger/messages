@@ -15,32 +15,26 @@ const isInsertEvent = R.pipe(
 
 const isNotInsertEvent = R.complement(isInsertEvent);
 
-const getNewMessage = R.pipe(
+const extractMessageFromDynamoDbEventRecord = R.pipe(
   R.path(["dynamodb", "NewImage"]),
   AWS.DynamoDB.Converter.unmarshall
 );
 
-const handleNewMessage = async record => {
-  console.log(JSON.stringify(record));
-
+const handleMessageCreatedEvent = async record => {
   if (isNotInsertEvent(record)) {
     console.log(`Skipping handling ${getEventName(record)} event`);
     return;
   }
 
-  const newMessage = getNewMessage(record);
-
-  console.log(newMessage);
+  const newMessage = extractMessageFromDynamoDbEventRecord(record);
 
   await emailService.sendEmail(newMessage.emailAddress, newMessage.content);
-  await snsService.sendNewEmailMessage(newMessage.id);
+  await snsService.publishEmailSentEvent(newMessage.id);
 };
 
-const handleNewMessages = async event => {
-  console.log(JSON.stringify(event));
-  await Promise.all(event.Records.map(handleNewMessage));
-};
+const handler = event =>
+  Promise.all(event.Records.map(handleMessageCreatedEvent));
 
 module.exports = {
-  handleNewMessages
+  handler
 };

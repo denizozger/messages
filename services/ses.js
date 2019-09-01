@@ -6,7 +6,7 @@ AWS.config.update({ region: "eu-west-1" });
 
 const sesClient = new AWS.SES({ apiVersion: "2010-12-01" });
 
-const sendEmail = (to, content) => {
+const sendEmail = async (to, content) => {
   const params = {
     Destination: {
       ToAddresses: [to]
@@ -27,7 +27,9 @@ const sendEmail = (to, content) => {
     ReplyToAddresses: ["denizozger@gmail.com"]
   };
 
-  return sesClient.sendEmail(params).promise();
+  await sesClient.sendEmail(params).promise();
+
+  console.log(`Sent email to ${to}`);
 };
 
 module.exports = {

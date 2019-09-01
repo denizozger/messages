@@ -1,11 +1,11 @@
 "use strict";
 
-const { listMessages } = require("../functions/listMessages");
+const { handler: listMessages } = require("../functions/list-messages");
 const dynamoDbService = require("../services/dynamodb");
 
 const MESSAGE_LIST_EVENT = require("./fixtures/list-messages-event");
 
-describe("handle new message function", () => {
+describe("list messages function", () => {
   beforeEach(async () => {
     dynamoDbService.docClient.query = jest.fn().mockImplementation(() => ({
       promise: jest.fn().mockResolvedValue(true)
@@ -16,10 +16,10 @@ describe("handle new message function", () => {
   afterEach(() => {
     jest.resetAllMocks();
   });
-  it("saves the message in database", async () => {
+  it("queries the database", async () => {
     await listMessages(MESSAGE_LIST_EVENT);
 
-    expect(dynamoDbService.docClient.query.mock.calls[0][0]).toEqual({
+    const expected = {
       ExpressionAttributeNames: {
         "#emailAddress": "emailAddress",
         "#emailSent": "emailSent"
@@ -30,13 +30,17 @@ describe("handle new message function", () => {
       },
       KeyConditionExpression:
         "#emailAddress = :emailAddress AND #emailSent = :emailSent"
-    });
+    };
+
+    const actual = dynamoDbService.docClient.query.mock.calls[0][0];
+
+    expect(actual).toEqual(expected);
   });
 
-  it("returns a success response", async () => {
+  it("returns the messages", async () => {
     const expected = { body: "true", statusCode: 200 };
     const actual = await listMessages(MESSAGE_LIST_EVENT);
 
-    expect(expected).toEqual(actual);
+    expect(actual).toEqual(expected);
   });
 });

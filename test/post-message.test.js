@@ -1,11 +1,11 @@
 "use strict";
 
-const { postMessage } = require("../functions/postMessage");
+const { handler: postMessage } = require("../functions/post-message");
 const dynamoDbService = require("../services/dynamodb");
 
 const MESSAGE_POST_EVENT = require("./fixtures/post-message-event");
 
-describe("handle new message function", () => {
+describe("post message function", () => {
   beforeEach(async () => {
     dynamoDbService.docClient.put = jest.fn().mockImplementation(() => ({
       promise: jest.fn().mockResolvedValue(true)
@@ -13,20 +13,25 @@ describe("handle new message function", () => {
 
     console.log = jest.fn();
   });
+
   afterEach(() => {
     jest.resetAllMocks();
   });
+
   it("saves the message in database", async () => {
     await postMessage(MESSAGE_POST_EVENT);
 
-    expect(dynamoDbService.docClient.put.mock.calls[0][0]).toEqual({
+    const expected = {
       Item: {
         content: "test",
         emailAddress: "denizozger@gmail.com",
         id: "e73eac5a-c90e-11e9-8601-cb0e0faaf38c"
       },
       TableName: undefined
-    });
+    };
+    const actual = dynamoDbService.docClient.put.mock.calls[0][0];
+
+    expect(actual).toEqual(expected);
   });
 
   it("returns a success response", async () => {
@@ -34,7 +39,7 @@ describe("handle new message function", () => {
       statusCode: 200,
       body: JSON.stringify(
         {
-          message: "Function executed successfully!"
+          message: "Message is processed"
         },
         null,
         2
@@ -42,6 +47,6 @@ describe("handle new message function", () => {
     };
     const actual = await postMessage(MESSAGE_POST_EVENT);
 
-    expect(expected).toEqual(actual);
+    expect(actual).toEqual(expected);
   });
 });

@@ -35,27 +35,27 @@ provider:
     DYNAMODB_TABLE: messages-${opt:stage, self:provider.stage}
 
 functions:
-  postMessage:
-    handler: postMessage.postMessage
+  post-message:
+    handler: post-message.handler
     events:
       - http:
           path: messages
           method: post
           cors: true
-  listMessages:
-    handler: listMessages.listMessages
+  list-messages:
+    handler: list-messages.handler
     events:
       - http:
           path: messages
           method: get
           cors: true
-  handleNewMessage:
-    handler: handleNewMessage.handleNewMessages
+  handle-message-created-event:
+    handler: handle-message-created-event.handler
     events:
 #      - stream: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}/stream/1970-01-01T00:00:00.000"
       - stream: "arn:aws:dynamodb:eu-central-1:710995169233:table/messages-dev/stream/2019-08-27T20:54:42.847"
-  handleEmailSent:
-    handler: handleEmailSent.handleEmailSent
+  handle-email-sent-event:
+    handler: handle-email-sent-event.handler
     events:
       - sns: "arn:aws:sns:eu-central-1:710995169233:message-post-dev-email-topic"
 
