@@ -9,7 +9,7 @@ const snsClient = new AWS.SNS({
 
 const publishEmailSentEvent = async message => {
   let payload = {
-    default: message,
+    default: JSON.stringify(message),
     GCM: {
       data: {
         message
@@ -28,7 +28,9 @@ const publishEmailSentEvent = async message => {
 
   await snsClient.publish(params).promise();
 
-  console.log(`Published event ${message} to topic ${params.TopicArn}`);
+  console.log(
+    `Published event ${JSON.stringify(message)} to topic ${params.TopicArn}`
+  );
 };
 
 module.exports = {

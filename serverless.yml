@@ -49,11 +49,11 @@ functions:
           path: messages
           method: get
           cors: true
-#  handle-message-created-event:
-#    handler: functions/handle-message-created-event.handler
-#    events:
-#      # TODO: Reference the stream arn instead of hardcoding
-#      - stream: "arn:aws:dynamodb:eu-central-1:710995169233:table/messages-dev/stream/2019-09-02T20:31:19.135"
+  handle-message-created-event:
+    handler: functions/handle-message-created-event.handler
+    events:
+      # TODO: Reference the stream arn instead of hardcoding
+      - stream: "arn:aws:dynamodb:eu-central-1:710995169233:table/messages-dev/stream/2019-09-03T18:59:17.394"
   handle-email-sent-event:
     handler: functions/handle-email-sent-event.handler
     events:
@@ -67,24 +67,18 @@ resources:
       Properties:
         AttributeDefinitions:
           -
-            AttributeName: id
+            AttributeName: emailAddress
             AttributeType: S
-#          -
-#            AttributeName: emailAddress
-#            AttributeType: S
-#          -
-#            AttributeName: emailSent
-#            AttributeType: B
-        KeySchema:
           -
             AttributeName: id
+            AttributeType: S
+        KeySchema:
+          -
+            AttributeName: emailAddress
             KeyType: HASH
-#          -
-#            AttributeName: emailAddress
-#            KeyType: RANGE
-#          -
-#            AttributeName: emailSent
-#            KeyType: RANGE
+          -
+            AttributeName: id
+            KeyType: RANGE
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1

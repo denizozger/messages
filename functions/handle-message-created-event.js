@@ -29,7 +29,10 @@ const handleMessageCreatedEvent = async record => {
   const newMessage = extractMessageFromDynamoDbEventRecord(record);
 
   await emailService.sendEmail(newMessage.emailAddress, newMessage.content);
-  await snsService.publishEmailSentEvent(newMessage.id);
+  await snsService.publishEmailSentEvent({
+    id: newMessage.id,
+    emailAddress: newMessage.emailAddress
+  });
 };
 
 const handler = event =>
