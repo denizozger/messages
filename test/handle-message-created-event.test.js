@@ -51,8 +51,7 @@ describe("handle message created event function", () => {
       Message:
         '{"default":"4ace885b-c9ba-11e9-a1e7-e12fbd5a77dc","GCM":"{\\"data\\":{\\"message\\":\\"4ace885b-c9ba-11e9-a1e7-e12fbd5a77dc\\"}}"}',
       MessageStructure: "json",
-      TopicArn:
-        "arn:aws:sns:eu-central-1:710995169233:message-post-dev-email-topic"
+      TopicArn: "arn:aws:sns:eu-central-1:710995169233:messages-dev-email-topic"
     };
 
     const actual = snsService.snsClient.publish.mock.calls[0][0];

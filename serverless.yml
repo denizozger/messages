@@ -1,4 +1,4 @@
-service: message-post
+service: messages
 app: message-api
 org: denizozger
 
@@ -30,34 +30,34 @@ provider:
     - Effect: Allow
       Action:
         - sns:Publish
-      Resource: "arn:aws:sns:eu-central-1:710995169233:message-post-dev-email-topic"
+      Resource: "arn:aws:sns:eu-central-1:710995169233:messages-dev-email-topic"
   environment:
     DYNAMODB_TABLE: messages-${opt:stage, self:provider.stage}
 
 functions:
   post-message:
-    handler: post-message.handler
+    handler: functions/post-message.handler
     events:
       - http:
           path: messages
           method: post
           cors: true
   list-messages:
-    handler: list-messages.handler
+    handler: functions/list-messages.handler
     events:
       - http:
           path: messages
           method: get
           cors: true
-  handle-message-created-event:
-    handler: handle-message-created-event.handler
-    events:
-#      - stream: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}/stream/1970-01-01T00:00:00.000"
-      - stream: "arn:aws:dynamodb:eu-central-1:710995169233:table/messages-dev/stream/2019-08-27T20:54:42.847"
+#  handle-message-created-event:
+#    handler: functions/handle-message-created-event.handler
+#    events:
+#      # TODO: Reference the stream arn instead of hardcoding
+#      - stream: "arn:aws:dynamodb:eu-central-1:710995169233:table/messages-dev/stream/2019-09-02T20:31:19.135"
   handle-email-sent-event:
-    handler: handle-email-sent-event.handler
+    handler: functions/handle-email-sent-event.handler
     events:
-      - sns: "arn:aws:sns:eu-central-1:710995169233:message-post-dev-email-topic"
+      - sns: "arn:aws:sns:eu-central-1:710995169233:messages-dev-email-topic"
 
 resources:
   Resources:
@@ -69,9 +69,9 @@ resources:
           -
             AttributeName: id
             AttributeType: S
-          -
-            AttributeName: emailAddress
-            AttributeType: S
+#          -
+#            AttributeName: emailAddress
+#            AttributeType: S
 #          -
 #            AttributeName: emailSent
 #            AttributeType: B
@@ -79,9 +79,9 @@ resources:
           -
             AttributeName: id
             KeyType: HASH
-          -
-            AttributeName: emailAddress
-            KeyType: RANGE
+#          -
+#            AttributeName: emailAddress
+#            KeyType: RANGE
 #          -
 #            AttributeName: emailSent
 #            KeyType: RANGE

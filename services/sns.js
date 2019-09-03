@@ -23,8 +23,7 @@ const publishEmailSentEvent = async message => {
   const params = {
     Message: payload,
     MessageStructure: "json",
-    TopicArn:
-      "arn:aws:sns:eu-central-1:710995169233:message-post-dev-email-topic"
+    TopicArn: "arn:aws:sns:eu-central-1:710995169233:messages-dev-email-topic"
   };
 
   await snsClient.publish(params).promise();

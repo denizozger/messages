@@ -37,7 +37,7 @@ const updateMessage = async id => {
       "#emailSent": "emailSent"
     },
     ExpressionAttributeValues: {
-      ":emailSent": true
+      ":emailSent": "true"
     },
     ReturnValues: "UPDATED_NEW"
   };
