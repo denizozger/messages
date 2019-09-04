@@ -9,7 +9,7 @@
         "MessageId": "0965ee21-c4c7-55f3-9697-bbfe5af456b8",
         "TopicArn": "arn:aws:sns:eu-central-1:710995169233:message-post-dev-email-topic",
         "Subject": null,
-        "Message": "{ id: \"5ce2c08f-80fe-43ee-82c3-a84d16609e20\", emailAddress: \"denizozger@gmail.com\" }",
+        "Message": "{\"id\":\"8c01769c-7d66-49ac-af09-9d69c492378b\",\"emailAddress\":\"denizozger@gmail.com\"}",
         "Timestamp": "2019-08-27T21:09:07.392Z",
         "SignatureVersion": "1",
         "Signature": "kx1XADgdBCJVKF2BCMzXGDMn1ROmIz79cTPe3FN1q5X22h/7SM1ul86zFRAT5wI/7EWD/DgYToZXq3kTTou0bv/mijP75vWFnu2PoYgc8JF9lvEjIaqi2Gq+eNqsknofT2SjUNssM1HJ+pSxneMWbRjtnqcwvpC78V+gcy7Dl/EjXWPtWmO4zGNMLC9FdxWst7E327ZblXx1bf6W4iI9YmqYcRVPp63G0DNkeGMjcpupm964ly5zQh+ooWxmDy01XNXnus01uWM0Xcj2QrHfZ+zUX6X5VEDiKQ+Aib5xctIAXL1MIdsD8xyZZVChsQVGYAbposa37Rl31ypmMwofQg==",

@@ -29,7 +29,8 @@ describe("handle email sent function", () => {
         ":emailSent": true
       },
       Key: {
-        id: "e73eac5a-c90e-11e9-8601-cb0e0faaf38c"
+        id: "8c01769c-7d66-49ac-af09-9d69c492378b",
+        emailAddress: "denizozger@gmail.com"
       },
       ReturnValues: "UPDATED_NEW",
       UpdateExpression: "SET #emailSent = :emailSent"

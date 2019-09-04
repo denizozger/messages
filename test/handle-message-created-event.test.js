@@ -32,8 +32,8 @@ describe("handle message created event function", () => {
     const expected = {
       Destination: { ToAddresses: ["denizozger@gmail.com"] },
       Message: {
-        Body: { Text: { Charset: "UTF-8", Data: "TEST" } },
-        Subject: { Charset: "UTF-8", Data: "test" }
+        Body: { Text: { Charset: "UTF-8", Data: "test" } },
+        Subject: { Charset: "UTF-8", Data: "An email from Messages" }
       },
       ReplyToAddresses: ["denizozger@gmail.com"],
       Source: "denizozger@gmail.com"
@@ -49,7 +49,9 @@ describe("handle message created event function", () => {
 
     const expected = {
       Message:
-        '{"default":"4ace885b-c9ba-11e9-a1e7-e12fbd5a77dc","GCM":"{\\"data\\":{\\"message\\":\\"4ace885b-c9ba-11e9-a1e7-e12fbd5a77dc\\"}}"}',
+        '{"default":"{\\"id\\":\\"4ace885b-c9ba-11e9-a1e7-e12fbd5a77dc\\",\\"emailAddress\\":\\"' +
+        'denizozger@gmail.com\\"}","GCM":"{\\"data\\":{\\"message\\":{\\"id\\":\\"' +
+        '4ace885b-c9ba-11e9-a1e7-e12fbd5a77dc\\",\\"emailAddress\\":\\"denizozger@gmail.com\\"}}}"}',
       MessageStructure: "json",
       TopicArn: "arn:aws:sns:eu-central-1:710995169233:messages-dev-email-topic"
     };

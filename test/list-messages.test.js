@@ -7,8 +7,8 @@ const MESSAGE_LIST_EVENT = require("./fixtures/list-messages-event");
 
 describe("list messages function", () => {
   beforeEach(async () => {
-    dynamoDbService.docClient.query = jest.fn().mockImplementation(() => ({
-      promise: jest.fn().mockResolvedValue(true)
+    dynamoDbService.docClient.scan = jest.fn().mockImplementation(() => ({
+      promise: jest.fn().mockResolvedValue({ Items: [] })
     }));
 
     console.log = jest.fn();
@@ -28,17 +28,17 @@ describe("list messages function", () => {
         ":emailAddress": "denizozger@gmail.com",
         ":emailSent": true
       },
-      KeyConditionExpression:
-        "#emailAddress = :emailAddress AND #emailSent = :emailSent"
+      FilterExpression:
+        "#emailAddress = :emailAddress and #emailSent = :emailSent"
     };
 
-    const actual = dynamoDbService.docClient.query.mock.calls[0][0];
+    const actual = dynamoDbService.docClient.scan.mock.calls[0][0];
 
     expect(actual).toEqual(expected);
   });
 
   it("returns the messages", async () => {
-    const expected = { body: "true", statusCode: 200 };
+    const expected = { body: "[]", statusCode: 200 };
     const actual = await listMessages(MESSAGE_LIST_EVENT);
 
     expect(actual).toEqual(expected);
