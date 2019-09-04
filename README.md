@@ -17,6 +17,8 @@ $ npm test
 $ npx serverless deploy
 ```
 
+Bear in mind that the configuration in `serverless.yml` needs to be amended as there are some hardcoded values.
+
 ## Architecture
 
 This architecture favours decoupling and scalability at the expense of simplicity (there is always a trade-off).
@@ -72,3 +74,4 @@ There are a lot of components that are excluded from this project before it coul
 - Validation
 - Containerisation
 - Performance tests
+- Removing some hardcoded values in IaC

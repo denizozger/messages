@@ -38,6 +38,7 @@ const handleMessageCreatedEvent = async record => {
     });
   } catch (e) {
     console.error(`Failed to process record ${record}`);
+    return; // always resolve the promise so that AWS does not try to re-deliver the event
   }
 };
 
