@@ -53,7 +53,7 @@ functions:
     handler: functions/handle-message-created-event.handler
     events:
       # TODO: Reference the stream arn instead of hardcoding
-      - stream: "arn:aws:dynamodb:eu-central-1:710995169233:table/messages-dev/stream/2019-09-03T18:59:17.394"
+      - stream: "arn:aws:dynamodb:eu-central-1:710995169233:table/messages-dev/stream/2019-09-04T18:32:29.028"
   handle-email-sent-event:
     handler: functions/handle-email-sent-event.handler
     events:

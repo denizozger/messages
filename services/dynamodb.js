@@ -64,22 +64,14 @@ const markMessageAsEmailSent = async (emailAddress, id) => {
   console.log(`Marked message as email sent, message id: ${id}`);
 };
 
-// ➜ aws dynamodb query \
-//       --table-name messages-dev \
-//       --key-condition-expression "emailAddress = :emailAddress" \
-//       --filter-expression "emailSent = :emailSent" \
-//       --expression-attribute-values '{
-// ":emailAddress": { "S": "denizozger@gmail.com" },
-// ":emailSent": { "BOOL": true }
-// }' \
-//       $LOCAL
-
-const listMessages = emailAddress => {
+const listMessages = async emailAddress => {
   const params = {
     TableName: process.env.DYNAMODB_TABLE,
-    KeyConditionExpression: "emailAddress = :emailAddress",
-    FilterExpression: {
-      emailSent: ":emailSent"
+    FilterExpression:
+      "#emailAddress = :emailAddress and #emailSent = :emailSent",
+    ExpressionAttributeNames: {
+      "#emailAddress": "emailAddress",
+      "#emailSent": "emailSent"
     },
     ExpressionAttributeValues: {
       ":emailAddress": emailAddress,
@@ -89,7 +81,7 @@ const listMessages = emailAddress => {
 
   console.log(`Querying records with params: ${JSON.stringify(params)}`);
 
-  return docClient.query(params).promise();
+  return (await docClient.scan(params).promise()).Items;
 };
 
 module.exports = {

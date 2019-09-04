@@ -21,18 +21,24 @@ const extractMessageFromDynamoDbEventRecord = R.pipe(
 );
 
 const handleMessageCreatedEvent = async record => {
-  if (isNotInsertEvent(record)) {
-    console.log(`Skipping handling ${getEventName(record)} event`);
-    return;
+  try {
+    if (isNotInsertEvent(record)) {
+      console.log(`Skipping handling ${getEventName(record)} event`);
+      return;
+    }
+
+    console.log(`Processing record ${JSON.stringify(record)}`);
+
+    const newMessage = extractMessageFromDynamoDbEventRecord(record);
+
+    await emailService.sendEmail(newMessage.emailAddress, newMessage.content);
+    await snsService.publishEmailSentEvent({
+      id: newMessage.id,
+      emailAddress: newMessage.emailAddress
+    });
+  } catch (e) {
+    console.error(`Failed to process record ${record}`);
   }
-
-  const newMessage = extractMessageFromDynamoDbEventRecord(record);
-
-  await emailService.sendEmail(newMessage.emailAddress, newMessage.content);
-  await snsService.publishEmailSentEvent({
-    id: newMessage.id,
-    emailAddress: newMessage.emailAddress
-  });
 };
 
 const handler = event =>

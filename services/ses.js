@@ -15,12 +15,12 @@ const sendEmail = async (to, content) => {
       Body: {
         Text: {
           Charset: "UTF-8",
-          Data: "TEST"
+          Data: content
         }
       },
       Subject: {
         Charset: "UTF-8",
-        Data: content
+        Data: "An email from Messages"
       }
     },
     Source: "denizozger@gmail.com",
