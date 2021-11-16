@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Monorepo for Message CRUD",
   "dependencies": {
-    "aws-sdk": "^2.517.0",
+    "aws-sdk": "^2.814.0",
     "ramda": "^0.26.1"
   },
   "devDependencies": {
